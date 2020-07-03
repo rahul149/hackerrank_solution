@@ -7,45 +7,18 @@ import java.util.concurrent.*;
 import java.util.regex.*;
 
 public class Solution {
-    static int MIN(int x,int y){
-        if(x<=y)
-        return x;
-        return y;
-    }
+
     // Complete the surfaceArea function below.
     static int surfaceArea(int[][] A) {
-    int s=0,side=0;
-        for(int i=0;i<A.length;i++){
-            for(int j=0;j<A[i].length;j++){
-                s=s+(A[i][j]*2)-2;
-                side=side+(A[i][j]*6);
-                if(A.length==1 && A[i].length==1)
-                { s=0;}
-                else
-                if(i==0)
-                {
-                    if(j==0)
-                    { s = s + MIN(A[i][j],A[i][j+1]) + MIN(A[i][j],A[i+1][j]); }
-                    else if(j==(A[i].length-1))
-                            { s=s=s+MIN(A[i][j],A[i][j-1])+MIN(A[i][j],A[i+1][j]);}
-                            else {s=s=s+MIN(A[i][j],A[i][j+1])+MIN(A[i][j],A[i][j-1])+MIN(A[i][j],A[i+1][j]);}
-                }else if(i==A.length-1)
-                        { if(j==0)
-                            { s=s+MIN(A[i][j],A[i][j+1])+MIN(A[i][j],A[i-1][j]);}
-                            else if(j==(A[i].length-1))
-                                { s=s=s+MIN(A[i][j],A[i][j-1])+MIN(A[i][j],A[i-1][j]);}
-                            else {s=s=s+MIN(A[i][j],A[i][j+1])+MIN(A[i][j],A[i][j-1])+MIN(A[i][j],A[i-1][j]);}
-                        } else {  if(j==0)
-                                  { s=s+MIN(A[i][j],A[i][j+1])+MIN(A[i][j],A[i+1][j])+MIN(A[i][j],A[i-1][j]);}
-                    else if(j==(A[i].length-1))
-                            { s=s=s+MIN(A[i][j],A[i][j-1])+MIN(A[i][j],A[i+1][j])+MIN(A[i][j],A[i-1][j]);}
-                            else {s=s=s+MIN(A[i][j],A[i][j+1])+MIN(A[i][j],A[i][j-1])+MIN(A[i][j],A[i+1][j])+MIN(A[i][j],A[i-1][j]);}
-                                }
-            }
+    int sum=0;
+    for (int i=0;i<A.length;i++)
+        for (int j=0;j<A[0].length;j++)
+        {
+            sum+=A[i][j]*4+2;
+            if (j+1<A[0].length)    sum-=2*Math.min(A[i][j], A[i][j+1]);
+            if (i+1<A.length)    sum-=2*Math.min(A[i][j], A[i+1][j]);
         }
-        return side-s;
-
-    
+    return sum;    
     
 
     }
